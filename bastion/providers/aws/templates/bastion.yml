@@ -1,0 +1,42 @@
+Parameters:
+  AvailabilityZone:
+    Type: String
+  IamInstanceProfile:
+    Type: String
+  ImageId:
+    Type: String
+    Default: ami-37cfad5b
+  InstanceType:
+    Type: String
+    Default: t2.micro
+  KeyName:
+    Type: String
+  # SecurityGroupsIds:
+  #   Type: String
+  SubnetId:
+    Type: String
+  InstanceName:
+    Type: String 
+
+Resources:
+  BastionInstance:
+    Type: "AWS::EC2::Instance"
+    Properties: 
+      AvailabilityZone: !Ref AvailabilityZone
+      DisableApiTermination: false
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      # SecurityGroupIds: !Ref SecurityGroups
+      SourceDestCheck: true
+      NetworkInterfaces:
+        - 
+          AssociatePublicIpAddress: true
+          DeleteOnTermination: true
+          DeviceIndex: 0
+          SubnetId: !Ref SubnetId 
+      Tags:
+        - 
+          Key: Name
+          Value: !Ref InstanceName
