@@ -43,9 +43,9 @@ class Bastion(object):
             self.instance_name = self.stack_name
 
         if self.region_name is not None:
-        	self.region = _get_region('cloudformation', self.region_name)
+            self.region = _get_region('cloudformation', self.region_name)
         else:
-        	self.region = None
+            self.region = None
 
         self.connection = CloudFormationConnection(
             aws_access_key_id=self.aws_access_key_id,

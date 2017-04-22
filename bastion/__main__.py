@@ -8,7 +8,7 @@ click.disable_unicode_literals_warnings = True
 
 @click.group()
 def cli():
-	pass
+    pass
 
 
 @cli.command()
@@ -24,33 +24,33 @@ def cli():
 @click.option('--instance-type', help='The instance type', default='t2.micro')
 @click.option('--security-groups-ids', help='A list of security groups ids to allow traffic to the bastion')
 def create(stack_name, availability_zone, key_pair_name,
-				 subnet_id, region_name, instance_name,
-				 aws_access_key_id, aws_secret_access_key,
-				 image_id, instance_type, security_groups_ids):
-	"""
-	Easily create and manage bastion hosts in AWS VPCs
-	"""
-	if not any([availability_zone, key_pair_name, subnet_id]):
-		raise click.UsageError(
-			'You must pass at least availability_zone, key_pair_name and'
-			'subnet_id'
-		)
-	bastion = create_bastion(
-		availability_zone=availability_zone,
-		key_pair_name=key_pair_name,
-		subnet_id=subnet_id,
-		region_name=region_name,
-		instance_name=instance_name,
-		stack_name=stack_name,
-		aws_access_key_id=aws_access_key_id,
-		aws_secret_access_key=aws_secret_access_key,
-		image_id=image_id,
-		instance_type=instance_type,
-		security_groups_ids=security_groups_ids
-	)
+           subnet_id, region_name, instance_name,
+           aws_access_key_id, aws_secret_access_key,
+           image_id, instance_type, security_groups_ids):
+    """
+    Easily create and manage bastion hosts in AWS VPCs
+    """
+    if not any([availability_zone, key_pair_name, subnet_id]):
+        raise click.UsageError(
+            'You must pass at least availability_zone, key_pair_name and'
+            'subnet_id'
+        )
+    create_bastion(
+        availability_zone=availability_zone,
+        key_pair_name=key_pair_name,
+        subnet_id=subnet_id,
+        region_name=region_name,
+        instance_name=instance_name,
+        stack_name=stack_name,
+        aws_access_key_id=aws_access_key_id,
+        aws_secret_access_key=aws_secret_access_key,
+        image_id=image_id,
+        instance_type=instance_type,
+        security_groups_ids=security_groups_ids
+    )
 
-	click.echo('bastion created.')
+    click.echo('bastion created.')
 
 
 if __name__ == '__main__':
-	cli()
+    cli()

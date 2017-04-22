@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from colorama import init, Fore
+from colorama import Fore
 
 
 event_color_map = {
