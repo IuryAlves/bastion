@@ -1,0 +1,51 @@
+{
+  "Parameters": {
+    "AvailabilityZone": {
+      "Type": "String"
+    },
+    "ImageId": {
+      "Type": "String",
+      "Default": "ami-37cfad5b"
+    },
+    "InstanceType": {
+      "Type": "String",
+      "Default": "t2.micro"
+    },
+    "KeyPairName": {
+      "Type": "String"
+    },
+    "SubnetId": {
+      "Type": "String"
+    },
+    "InstanceName": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "BastionInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": "AvailabilityZone",
+        "DisableApiTermination": false,
+        "ImageId": "ImageId",
+        "InstanceType": "InstanceType",
+        "KeyName": "KeyPairName",
+        "SourceDestCheck": true,
+        "NetworkInterfaces": [
+          {
+            "AssociatePublicIpAddress": true,
+            "DeleteOnTermination": true,
+            "DeviceIndex": 0,
+            "SubnetId": "SubnetId"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "InstanceName"
+          }
+        ]
+      }
+    }
+  }
+}
