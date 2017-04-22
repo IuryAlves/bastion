@@ -1,15 +1,13 @@
 Parameters:
   AvailabilityZone:
     Type: String
-  IamInstanceProfile:
-    Type: String
   ImageId:
     Type: String
     Default: ami-37cfad5b
   InstanceType:
     Type: String
     Default: t2.micro
-  KeyName:
+  KeyPairName:
     Type: String
   # SecurityGroupsIds:
   #   Type: String
@@ -24,10 +22,9 @@ Resources:
     Properties: 
       AvailabilityZone: !Ref AvailabilityZone
       DisableApiTermination: false
-      IamInstanceProfile: !Ref IamInstanceProfile
       ImageId: !Ref ImageId
       InstanceType: !Ref InstanceType
-      KeyName: !Ref KeyName
+      KeyName: !Ref KeyPairName
       # SecurityGroupIds: !Ref SecurityGroups
       SourceDestCheck: true
       NetworkInterfaces:

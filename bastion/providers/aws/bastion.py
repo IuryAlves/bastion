@@ -10,14 +10,13 @@ from .events_colors import event_color_map
 class Bastion(object):
 
     def __init__(self, template,
-                 region_name,
                  availability_zone,
-                 key_name, subnet_id,
+                 key_pair_name, subnet_id,
+                 region_name=None,
                  instance_name=None,
                  stack_name=None,
                  aws_access_key_id=None,
                  aws_secret_access_key=None,
-                 iam_instance_profile=None,
                  image_id='ami-37cfad5b',
                  instance_type='t2.micro',
                  security_groups_ids=None):
@@ -26,14 +25,12 @@ class Bastion(object):
         self.aws_access_key_id = aws_access_key_id
         self.aws_secret_access_key = aws_secret_access_key
         self.availability_zone = availability_zone
-        self.key_name = key_name
+        self.key_pair_name = key_pair_name
         self.subnet_id = subnet_id
-        self.iam_instance_profile = iam_instance_profile
         self.image_id = image_id
         self.instance_type = instance_type
         self.security_groups_ids = security_groups_ids
         self.region_name = region_name
-        self.region = _get_region('cloudformation', self.region_name)
         self.stack_name = stack_name
         self.instance_name = instance_name
 
@@ -44,6 +41,11 @@ class Bastion(object):
 
         if self.instance_name is None:
             self.instance_name = self.stack_name
+
+        if self.region_name is not None:
+        	self.region = _get_region('cloudformation', self.region_name)
+        else:
+        	self.region = None
 
         self.connection = CloudFormationConnection(
             aws_access_key_id=self.aws_access_key_id,
@@ -56,15 +58,10 @@ class Bastion(object):
             ('AvailabilityZone', self.availability_zone),
             ('ImageId', self.image_id),
             ('InstanceType', self.instance_type),
-            ('KeyName', self.key_name),
+            ('KeyPairName', self.key_pair_name),
             ('SubnetId', self.subnet_id),
             ('InstanceName', self.instance_name)
         ]
-
-        if self.iam_instance_profile is not None:
-            parameters.append(
-                ('IamInstanceProfile', self.iam_instance_profile),
-            )
 
         if self.security_groups_ids is not None:
             parameters.append(

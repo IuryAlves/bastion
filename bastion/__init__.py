@@ -16,7 +16,7 @@ def create_bastion(provider='aws', template_name='bastion.yml', **kwargs):
     template = read_template(provider, template_name)
     bastion = Bastion(template, **kwargs)
     bastion.create()
-    bastion.events()
+    return bastion
 
 
 def read_template(provider, template_name):
