@@ -1,0 +1,14 @@
+language: python
+
+matrix:
+  include:
+  - python: "2.7"
+    env: VERSION=27
+  - python: "3.4"
+    env: VERSION=34
+
+before_script:
+  - pip install -r tox==2.7.0
+
+script:
+  - tox -e py$VERSION

@@ -5,7 +5,6 @@ from __future__ import (
     absolute_import
 )
 
-from .bastion import Bastion
 
-
-__all__ = ['Bastion']
+DEFAULT_AMI = 'ami-37cfad5b'
+DEFAULT_INSTANCE_TYPE = 't2.micro'

@@ -6,7 +6,7 @@ from __future__ import (
 )
 
 from os import path
-from .providers.aws import Bastion
+from bastion.providers.aws import Bastion
 
 
 DIR_PATH = path.dirname(path.realpath(__file__))

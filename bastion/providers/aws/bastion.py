@@ -1,5 +1,11 @@
 # coding: utf-8
 
+from __future__ import (
+    unicode_literals,
+    absolute_import
+)
+
+
 import time
 from boto.cloudformation.connection import CloudFormationConnection
 from boto.regioninfo import _get_region
@@ -47,6 +53,9 @@ class Bastion(object):
         else:
             self.region = None
 
+        self.connect()
+
+    def connect(self):
         self.connection = CloudFormationConnection(
             aws_access_key_id=self.aws_access_key_id,
             aws_secret_access_key=self.aws_secret_access_key,
@@ -85,7 +94,6 @@ class Bastion(object):
                     if event.event_id not in _events_ids:
                         color = event_color_map.get(event.resource_status, '')
                         print('{0}{1}'.format(color, event))
-
                         _events_ids.append(event.event_id)
                 time.sleep(1)
 
