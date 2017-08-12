@@ -23,4 +23,3 @@ class CreateBastionTestCase(unittest.TestCase):
              ])
 
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(result.output, 'bastion created.\n')
